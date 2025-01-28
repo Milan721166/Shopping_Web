@@ -1,0 +1,23 @@
+project-root/
+  ├── public/
+  │   ├── images/                 # Folder for static images
+  │   │   ├── tshirt.png          # Example image for items
+  │   │   ├── jeans.png
+  │   │   ├── sneakers.png
+  │   │   └── watches.png
+  ├── src/
+  │   ├── assets/
+  │   │   ├── components/         # React components
+  │   │   │   ├── NavBar.js       # Navbar component
+  │   │   │   ├── Footer.js       # Footer component
+  │   │   │   ├── Home.js         # Home component displaying items
+  │   ├── api/                    # API-related functions
+  │   │   └── itemApi.js          # Fetch items from the API
+  │   ├── App.js                  # Main App component
+  │   ├── main.jsx                # Entry point of the app
+  │   ├── App.css                 # Global styles
+  │   └── index.css               # Default CSS for app
+  ├── .gitignore
+  ├── package.json
+  ├── vite.config.js
+  └── README.md
