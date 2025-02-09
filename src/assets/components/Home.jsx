@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { fetchItems } from '../../api/itemApi'; 
+import { fetchItems } from '../../api/itemApi';
+
 function Home() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-  
-    fetchItems().then((fetchedItems) => {
-      setItems(fetchedItems);
-      setLoading(false);
-    });
+    const fetchData = async () => {
+      try {
+        const fetchedItems = await fetchItems();
+        setItems(fetchedItems);
+      } catch (error) {
+        setError('Error fetching items.'); 
+        console.error('Error fetching items:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   if (loading) {
@@ -31,6 +41,14 @@ function Home() {
     );
   }
 
+  if (error) {
+    return (
+      <div className="home-container">
+        <h1>Error</h1>
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="home-container">
@@ -40,7 +58,15 @@ function Home() {
           <div key={item.id} className="item-card">
             <img src={item.imageUrl} alt={item.name} className="item-image" />
             <h2>{item.name}</h2>
-            <p>{item.price}</p>
+            <p>
+              {item.originalPrice && (
+                <>
+                  <span style={{ textDecoration: 'line-through' }}>{item.originalPrice}</span>{' '}
+                </>
+              )}
+              {item.price}
+            </p>
+            {item.discount && <p> {item.discount}% OFF</p>}
             <button>Add to Cart</button>
           </div>
         ))}
